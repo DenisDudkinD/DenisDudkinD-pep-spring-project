@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -47,6 +48,17 @@ public class SocialMediaController {
             account = accountService.loginAccount(account);
             return ResponseEntity.ok().body(account);
         }
-       
+    @PostMapping("messages")
+    public ResponseEntity<Message> message(@RequestBody Message message){
+        if(accountService.findByID(message.getPostedBy())==null){
+            return ResponseEntity.status(400).body(message);
+        }
+        if(messageService.postMessage(message) == null){
+            return ResponseEntity.status(400).body(message);
+        }
+        message = messageService.postMessage(message);
+        return ResponseEntity.ok().body(message);
+
+    }
     }
 
