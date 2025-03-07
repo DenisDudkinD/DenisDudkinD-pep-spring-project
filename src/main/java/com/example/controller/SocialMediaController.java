@@ -1,8 +1,12 @@
 package com.example.controller;
 
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -49,16 +53,24 @@ public class SocialMediaController {
             return ResponseEntity.ok().body(account);
         }
     @PostMapping("messages")
-    public ResponseEntity<Message> message(@RequestBody Message message){
+    public ResponseEntity<Message> postMessage(@RequestBody Message message){
         if(accountService.findByID(message.getPostedBy())==null){
             return ResponseEntity.status(400).body(message);
         }
         if(messageService.postMessage(message) == null){
             return ResponseEntity.status(400).body(message);
-        }
+       }
         message = messageService.postMessage(message);
         return ResponseEntity.ok().body(message);
 
+    }
+    @GetMapping("messages")
+    public ResponseEntity<List<Message>>  getMessageList(){
+        return ResponseEntity.ok().body(messageService.getAllMessages());
+    }
+    @GetMapping("messages/{messageId}")
+    public ResponseEntity<Message> getMessagebyId(@PathVariable Integer messageId){
+        return ResponseEntity.ok().body(messageService.getMessageById(messageId));
     }
     }
 
