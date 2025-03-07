@@ -25,13 +25,16 @@ public class MessageService {
         return null;
     }
     public List<Message> getAllMessages(){
-        return (List<Message>) messageRepository.findAll();
+        return  (List<Message>)messageRepository.findAll();
     }
     public Message getMessageById(Integer id){
         return messageRepository.findById(id).orElse(null);
     }
     public void deleteMessageById(Integer id){
          messageRepository.deleteById(id);
+    }
+    public List<Message> getMessagesByUser(int id){
+        return messageRepository.findAllByPostedBy(id);
     }
 
 }
