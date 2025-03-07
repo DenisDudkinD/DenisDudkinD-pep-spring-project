@@ -30,4 +30,7 @@ public class MessageService {
     public Message getMessageById(Integer id){
         return messageRepository.findById(id).orElse(null);
     }
+    public void deleteMessageById(Integer id){
+         messageRepository.deleteById(id);
+    }
 }
