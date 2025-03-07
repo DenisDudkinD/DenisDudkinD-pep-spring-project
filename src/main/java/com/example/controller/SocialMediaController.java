@@ -39,4 +39,14 @@ public class SocialMediaController {
         }
         return ResponseEntity.status(400).body(account);
     }
+    @PostMapping("login")
+        public ResponseEntity<Account> login(@RequestBody Account account){
+            if (accountService.loginAccount(account) == null){
+            return ResponseEntity.status(401).body(account);
+        }
+            account = accountService.loginAccount(account);
+            return ResponseEntity.ok().body(account);
+        }
+       
     }
+
