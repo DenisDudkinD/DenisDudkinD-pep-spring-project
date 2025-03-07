@@ -49,10 +49,10 @@ public class SocialMediaController {
     }
     @PostMapping("login")
         public ResponseEntity<Account> login(@RequestBody Account account){
-            if (accountService.loginAccount(account) == null){
+            if (accountService.loginAccount(account.getUsername(),account.getPassword()) == null){
             return ResponseEntity.status(401).body(account);
         }
-            account = accountService.loginAccount(account);
+            account = accountService.loginAccount(account.getUsername(),account.getPassword());
             return ResponseEntity.ok().body(account);
         }
     @PostMapping("messages")

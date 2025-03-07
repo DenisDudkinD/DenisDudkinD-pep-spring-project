@@ -21,8 +21,8 @@ public class AccountService {
     }
     return null;
 }
-    public Account loginAccount(Account account){
-     return accountRepository.findByUsernameAndPassword(account.getUsername(),account.getPassword());
+    public Account loginAccount(String username, String password){
+     return accountRepository.findByUsernameAndPassword(username,password);
     }
     public Account findByID(Integer id){
         return accountRepository.findById(id).orElse(null);
